@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vocabulary Quiz App</title>
+  <title>333 HFW Quiz </title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -15,6 +16,7 @@
       margin: 0;
       height: 100vh;
       align-items: center;
+      flex-direction: column; /* Ensure items are centered vertically */
     }
 
     .container {
@@ -27,6 +29,7 @@
 
     h1 {
       text-align: center;
+      margin: 20px 0; /* Space around heading */
     }
 
     .question {
@@ -69,210 +72,1898 @@
     .hide {
       display: none;
     }
+    
+    .part-selection {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .part-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #5bc0de;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      margin: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .part-button:hover {
+      background-color: #31b0d5;
+    }
+  
+
+
   </style>
 </head>
 <body>
+
+ <h1>333 HFW quiz</h1>
+
+
   <div class="container">
-    <h1>Vocabulary Quiz</h1>
+    <div id="partSelection" class="part-selection">
+      <h1>Select a Quiz Part</h1>
+      <!-- Buttons for selecting quiz parts -->
+      <button class="part-button" onclick="selectPart(1)">Part 1</button>
+      <button class="part-button" onclick="selectPart(2)">Part 2</button>
+      <button class="part-button" onclick="selectPart(3)">Part 3</button>
+      <button class="part-button" onclick="selectPart(4)">Part 4</button>
+      <button class="part-button" onclick="selectPart(5)">Part 5</button>
+      <button class="part-button" onclick="selectPart(6)">Part 6</button>
+      <button class="part-button" onclick="selectPart(7)">Part 7</button>
+      <button class="part-button" onclick="selectPart(8)">Part 8</button>
+      <button class="part-button" onclick="selectPart(9)">Part 9</button>
+      <button class="part-button" onclick="selectPart(10)">Part 10</button>
+    </div>
+    
     <div id="quiz"></div>
     <div id="result" class="result"></div>
-    <button id="submit" class="button">Submit</button>
+    <button id="submit" class="button hide">Submit</button>
     <button id="retry" class="button hide">Retry</button>
     <button id="showAnswer" class="button hide">Show Answer</button>
   </div>
 
   <script>
-    const quizData = [
-      {
-        question: 'What does "Abate" mean?',
-        options: ['To reduce in degree', 'To increase', 'To hide', 'To combine'],
-        answer: 'To reduce in degree',
-      },
-      {
-        question: 'What does "Aberrant" mean?',
-        options: ['Deviating from the norm', 'Normal', 'To absorb', 'To protect'],
-        answer: 'Deviating from the norm',
-      },
-      {
-        question: 'What does "Abeyance" mean?',
-        options: ['Suspension of activity', 'Urgency', 'Popularity', 'Enthusiasm'],
-        answer: 'Suspension of activity',
-      },
-      {
-        question: 'What does "Abscond" mean?',
-        options: ['To run away', 'To arrive', 'To speak', 'To maintain'],
-        answer: 'To run away',
-      },
-      {
-        question: 'What does "Abstemious" mean?',
-        options: ['Moderate in eating and drinking', 'Generous', 'Extravagant', 'Selfish'],
-        answer: 'Moderate in eating and drinking',
-      },
-      {
-        question: 'What does "Admonish" mean?',
-        options: ['To warn or reprimand', 'To encourage', 'To ignore', 'To deceive'],
-        answer: 'To warn or reprimand',
-      },
-      {
-        question: 'What does "Adulterate" mean?',
-        options: ['To make impure', 'To purify', 'To examine', 'To praise'],
-        answer: 'To make impure',
-      },
-      {
-        question: 'What does "Aesthetic" mean?',
-        options: ['Concerned with beauty', 'Concerned with science', 'Concerned with logic', 'Concerned with ethics'],
-        answer: 'Concerned with beauty',
-      },
-      {
-        question: 'What does "Aggregate" mean?',
-        options: ['A total or whole', 'A single unit', 'A division', 'A minor part'],
-        answer: 'A total or whole',
-      },
-      {
-        question: 'What does "Alacrity" mean?',
-        options: ['Eager readiness', 'Indifference', 'Reluctance', 'Confusion'],
-        answer: 'Eager readiness',
-      },
-    ];
+const quizData = {
+    1: [
+  {
+    question: 'What does "abate" mean?',
+    options: ['To make less severe', 'To increase', 'To refuse', 'To become worse'],
+    answer: 'To make less severe'
+  },
+  {
+    question: 'What does "aberrant" mean?',
+    options: ['Deviating from the norm', 'Acceptable', 'Usual', 'Normal'],
+    answer: 'Deviating from the norm'
+  },
+  {
+    question: 'What does "abeyance" mean?',
+    options: ['Temporary suspension', 'A permanent decision', 'Active operation', 'Continuous process'],
+    answer: 'Temporary suspension'
+  },
+  {
+    question: 'What does "abscond" mean?',
+    options: ['To leave secretly', 'To return', 'To stay', 'To appear suddenly'],
+    answer: 'To leave secretly'
+  },
+  {
+    question: 'What does "abstemious" mean?',
+    options: ['Moderate in eating or drinking', 'Indulging excessively', 'Careless', 'Greedy'],
+    answer: 'Moderate in eating or drinking'
+  },
+  {
+    question: 'What does "admonish" mean?',
+    options: ['To warn or reprimand', 'To praise', 'To ignore', 'To encourage'],
+    answer: 'To warn or reprimand'
+  },
+  {
+    question: 'What does "adulterate" mean?',
+    options: ['To make impure', 'To improve', 'To purify', 'To strengthen'],
+    answer: 'To make impure'
+  },
+  {
+    question: 'What does "aesthetic" mean?',
+    options: ['Related to beauty', 'Scientific', 'Boring', 'Ugly'],
+    answer: 'Related to beauty'
+  },
+  {
+    question: 'What does "aggregate" mean?',
+    options: ['To gather or accumulate', 'To divide', 'To separate', 'To reduce'],
+    answer: 'To gather or accumulate'
+  },
+  {
+    question: 'What does "alacrity" mean?',
+    options: ['Cheerful willingness', 'Hesitation', 'Anger', 'Laziness'],
+    answer: 'Cheerful willingness'
+  },
+  {
+    question: 'What does "alleviate" mean?',
+    options: ['To relieve', 'To worsen', 'To destroy', 'To ignore'],
+    answer: 'To relieve'
+  },
+  {
+    question: 'What does "amalgamate" mean?',
+    options: ['To combine or unite', 'To separate', 'To weaken', 'To compete'],
+    answer: 'To combine or unite'
+  },
+  {
+    question: 'What does "ambiguous" mean?',
+    options: ['Unclear or open to multiple interpretations', 'Clear and definite', 'Obvious', 'Simple'],
+    answer: 'Unclear or open to multiple interpretations'
+  },
+  {
+    question: 'What does "ambivalence" mean?',
+    options: ['Conflicting feelings', 'Certainty', 'Confidence', 'Indifference'],
+    answer: 'Conflicting feelings'
+  },
+  {
+    question: 'What does "ameliorate" mean?',
+    options: ['To improve', 'To make worse', 'To destroy', 'To ignore'],
+    answer: 'To improve'
+  },
+  {
+    question: 'What does "anachronism" mean?',
+    options: ['Something out of its time', 'Modern innovation', 'Timely event', 'Current trend'],
+    answer: 'Something out of its time'
+  },
+  {
+    question: 'What does "analogous" mean?',
+    options: ['Comparable', 'Opposite', 'Unrelated', 'Identical'],
+    answer: 'Comparable'
+  },
+  {
+    question: 'What does "anarchy" mean?',
+    options: ['A state of disorder', 'A peaceful society', 'Government control', 'A democratic system'],
+    answer: 'A state of disorder'
+  },
+  {
+    question: 'What does "anomalous" mean?',
+    options: ['Deviating from what is normal', 'Usual', 'Expected', 'Ordinary'],
+    answer: 'Deviating from what is normal'
+  },
+  {
+    question: 'What does "antipathy" mean?',
+    options: ['Strong dislike', 'Attraction', 'Admiration', 'Friendship'],
+    answer: 'Strong dislike'
+  },
+  {
+    question: 'What does "apathy" mean?',
+    options: ['Lack of interest or concern', 'Excitement', 'Enthusiasm', 'Curiosity'],
+    answer: 'Lack of interest or concern'
+  },
+  {
+    question: 'What does "appease" mean?',
+    options: ['To calm or satisfy', 'To irritate', 'To excite', 'To provoke'],
+    answer: 'To calm or satisfy'
+  },
+  {
+    question: 'What does "apprise" mean?',
+    options: ['To inform', 'To hide', 'To confuse', 'To mislead'],
+    answer: 'To inform'
+  },
+  {
+    question: 'What does "approbation" mean?',
+    options: ['Approval or praise', 'Disapproval', 'Criticism', 'Rejection'],
+    answer: 'Approval or praise'
+  },
+  {
+    question: 'What does "appropriate" mean?',
+    options: ['To take something for one\'s own use', 'To give away', 'To reject', 'To ignore'],
+    answer: 'To take something for one\'s own use'
+  },
+  {
+    question: 'What does "arduous" mean?',
+    options: ['Difficult and tiring', 'Easy', 'Relaxing', 'Simple'],
+    answer: 'Difficult and tiring'
+  },
+  {
+    question: 'What does "artless" mean?',
+    options: ['Without deceit or cunning', 'Deceptive', 'Crafty', 'Dishonest'],
+    answer: 'Without deceit or cunning'
+  },
+  {
+    question: 'What does "ascetic" mean?',
+    options: ['Practicing self-discipline and abstention', 'Indulgent', 'Luxury-loving', 'Carefree'],
+    answer: 'Practicing self-discipline and abstention'
+  },
+  {
+    question: 'What does "assiduous" mean?',
+    options: ['Hard-working and diligent', 'Lazy', 'Careless', 'Indifferent'],
+    answer: 'Hard-working and diligent'
+  },
+  {
+    question: 'What does "assuage" mean?',
+    options: ['To make less intense', 'To intensify', 'To worsen', 'To ignore'],
+    answer: 'To make less intense'
+  },
+  {
+    question: 'What does "attenuate" mean?',
+    options: ['To reduce in force or intensity', 'To strengthen', 'To increase', 'To expand'],
+    answer: 'To reduce in force or intensity'
+  },
+  {
+    question: 'What does "audacious" mean?',
+    options: ['Bold and daring', 'Cautious', 'Timid', 'Afraid'],
+    answer: 'Bold and daring'
+  },
+  {
+    question: 'What does "austere" mean?',
+    options: ['Severe or strict in manner', 'Indulgent', 'Friendly', 'Relaxed'],
+    answer: 'Severe or strict in manner'
+  }
+],
 
-    const quizContainer = document.getElementById('quiz');
-    const resultContainer = document.getElementById('result');
-    const submitButton = document.getElementById('submit');
-    const retryButton = document.getElementById('retry');
-    const showAnswerButton = document.getElementById('showAnswer');
+  2: [
+  {
+    question: 'What does "autonomous" mean?',
+    options: ['Independent', 'Dependent', 'Subordinate', 'Confused'],
+    answer: 'Independent'
+  },
+  {
+    question: 'What does "aver" mean?',
+    options: ['To state confidently', 'To deny', 'To doubt', 'To question'],
+    answer: 'To state confidently'
+  },
+  {
+    question: 'What does "banal" mean?',
+    options: ['Unoriginal and boring', 'Exciting', 'Unique', 'Confusing'],
+    answer: 'Unoriginal and boring'
+  },
+  {
+    question: 'What does "belie" mean?',
+    options: ['To give a false impression', 'To reveal', 'To support', 'To clarify'],
+    answer: 'To give a false impression'
+  },
+  {
+    question: 'What does "beneficent" mean?',
+    options: ['Kind and charitable', 'Selfish', 'Cruel', 'Stingy'],
+    answer: 'Kind and charitable'
+  },
+  {
+    question: 'What does "bolster" mean?',
+    options: ['To support or strengthen', 'To weaken', 'To criticize', 'To break'],
+    answer: 'To support or strengthen'
+  },
+  {
+    question: 'What does "bombastic" mean?',
+    options: ['Pompous and inflated language', 'Simple speech', 'Silent', 'Polite'],
+    answer: 'Pompous and inflated language'
+  },
+  {
+    question: 'What does "boorish" mean?',
+    options: ['Rude and insensitive', 'Polite', 'Respectful', 'Understanding'],
+    answer: 'Rude and insensitive'
+  },
+  {
+    question: 'What does "burgeon" mean?',
+    options: ['To grow rapidly', 'To shrink', 'To remain still', 'To weaken'],
+    answer: 'To grow rapidly'
+  },
+  {
+    question: 'What does "burnish" mean?',
+    options: ['To polish', 'To tarnish', 'To destroy', 'To roughen'],
+    answer: 'To polish'
+  },
+  {
+    question: 'What does "buttress" mean?',
+    options: ['To support or reinforce', 'To weaken', 'To hide', 'To destroy'],
+    answer: 'To support or reinforce'
+  },
+  {
+    question: 'What does "capricious" mean?',
+    options: ['Unpredictable', 'Predictable', 'Stable', 'Careful'],
+    answer: 'Unpredictable'
+  },
+  {
+    question: 'What does "castigation" mean?',
+    options: ['Severe criticism or punishment', 'Praise', 'Forgiveness', 'Reward'],
+    answer: 'Severe criticism or punishment'
+  },
+  {
+    question: 'What does "catalyst" mean?',
+    options: ['Something that speeds up a process', 'An obstacle', 'A hindrance', 'A delay'],
+    answer: 'Something that speeds up a process'
+  },
+  {
+    question: 'What does "caustic" mean?',
+    options: ['Sarcastic and biting', 'Polite', 'Kind', 'Gentle'],
+    answer: 'Sarcastic and biting'
+  },
+  {
+    question: 'What does "chicanery" mean?',
+    options: ['Deception or trickery', 'Honesty', 'Clarity', 'Simplicity'],
+    answer: 'Deception or trickery'
+  },
+  {
+    question: 'What does "coagulate" mean?',
+    options: ['To thicken into a solid', 'To dissolve', 'To dilute', 'To evaporate'],
+    answer: 'To thicken into a solid'
+  },
+  {
+    question: 'What does "coda" mean?',
+    options: ['The concluding part', 'The introduction', 'The climax', 'The middle section'],
+    answer: 'The concluding part'
+  },
+  {
+    question: 'What does "cogent" mean?',
+    options: ['Clear and convincing', 'Weak', 'Confusing', 'Ambiguous'],
+    answer: 'Clear and convincing'
+  },
+  {
+    question: 'What does "commensurate" mean?',
+    options: ['Proportional', 'Unbalanced', 'Inappropriate', 'Insufficient'],
+    answer: 'Proportional'
+  },
+  {
+    question: 'What does "compendium" mean?',
+    options: ['A brief summary', 'A long story', 'A complex explanation', 'A mistake'],
+    answer: 'A brief summary'
+  },
+  {
+    question: 'What does "complaisant" mean?',
+    options: ['Willing to please others', 'Stubborn', 'Rude', 'Independent'],
+    answer: 'Willing to please others'
+  },
+  {
+    question: 'What does "compliant" mean?',
+    options: ['Willing to obey or comply', 'Disobedient', 'Resistant', 'Stubborn'],
+    answer: 'Willing to obey or comply'
+  },
+  {
+    question: 'What does "conciliatory" mean?',
+    options: ['Intended to pacify', 'Provocative', 'Aggressive', 'Hostile'],
+    answer: 'Intended to pacify'
+  },
+  {
+    question: 'What does "condone" mean?',
+    options: ['To overlook or forgive', 'To punish', 'To criticize', 'To reject'],
+    answer: 'To overlook or forgive'
+  },
+  {
+    question: 'What does "confound" mean?',
+    options: ['To confuse or perplex', 'To clarify', 'To explain', 'To simplify'],
+    answer: 'To confuse or perplex'
+  },
+  {
+    question: 'What does "connoisseur" mean?',
+    options: ['An expert in a particular field', 'A beginner', 'A critic', 'An amateur'],
+    answer: 'An expert in a particular field'
+  },
+  {
+    question: 'What does "contention" mean?',
+    options: ['A heated disagreement', 'Agreement', 'Cooperation', 'Friendship'],
+    answer: 'A heated disagreement'
+  },
+  {
+    question: 'What does "contentious" mean?',
+    options: ['Causing or likely to cause disagreement', 'Agreeable', 'Calm', 'Friendly'],
+    answer: 'Causing or likely to cause disagreement'
+  },
+  {
+    question: 'What does "contrite" mean?',
+    options: ['Feeling remorseful', 'Proud', 'Indifferent', 'Carefree'],
+    answer: 'Feeling remorseful'
+  },
+  {
+    question: 'What does "conundrum" mean?',
+    options: ['A difficult problem or question', 'A simple answer', 'A clear solution', 'A common issue'],
+    answer: 'A difficult problem or question'
+  },
+  {
+    question: 'What does "converge" mean?',
+    options: ['To come together', 'To separate', 'To diverge', 'To scatter'],
+    answer: 'To come together'
+  },
+  {
+    question: 'What does "convoluted" mean?',
+    options: ['Complicated and difficult to follow', 'Simple', 'Clear', 'Straightforward'],
+    answer: 'Complicated and difficult to follow'
+  },
+  {
+    question: 'What does "craven" mean?',
+    options: ['Cowardly', 'Brave', 'Confident', 'Strong'],
+    answer: 'Cowardly'
+  }
+],
 
-    let currentQuestion = 0;
-    let score = 0;
-    let incorrectAnswers = [];
+  3: [
+  {
+    question: 'What does "daunt" mean?',
+    options: ['To intimidate or frighten', 'To encourage', 'To support', 'To assist'],
+    answer: 'To intimidate or frighten'
+  },
+  {
+    question: 'What does "decorum" mean?',
+    options: ['Proper behavior or etiquette', 'Rudeness', 'Carelessness', 'Disorder'],
+    answer: 'Proper behavior or etiquette'
+  },
+  {
+    question: 'What does "default" mean?',
+    options: ['Failure to fulfill an obligation', 'To complete a task', 'To improve', 'To achieve'],
+    answer: 'Failure to fulfill an obligation'
+  },
+  {
+    question: 'What does "deference" mean?',
+    options: ['Respect and esteem', 'Disrespect', 'Indifference', 'Criticism'],
+    answer: 'Respect and esteem'
+  },
+  {
+    question: 'What does "delineate" mean?',
+    options: ['To describe or outline precisely', 'To obscure', 'To generalize', 'To ignore'],
+    answer: 'To describe or outline precisely'
+  },
+  {
+    question: 'What does "denigrate" mean?',
+    options: ['To criticize unfairly', 'To praise', 'To support', 'To encourage'],
+    answer: 'To criticize unfairly'
+  },
+  {
+    question: 'What does "deride" mean?',
+    options: ['To mock or ridicule', 'To praise', 'To support', 'To ignore'],
+    answer: 'To mock or ridicule'
+  },
+  {
+    question: 'What does "derivative" mean?',
+    options: ['Something that is not original', 'Unique', 'Innovative', 'Creative'],
+    answer: 'Something that is not original'
+  },
+  {
+    question: 'What does "desiccate" mean?',
+    options: ['To dry out completely', 'To soak', 'To moisten', 'To dilute'],
+    answer: 'To dry out completely'
+  },
+  {
+    question: 'What does "desultory" mean?',
+    options: ['Lacking a plan or purpose', 'Focused', 'Ordered', 'Systematic'],
+    answer: 'Lacking a plan or purpose'
+  },
+  {
+    question: 'What does "deterrent" mean?',
+    options: ['Something that discourages', 'Something that encourages', 'Something that attracts', 'Something that invites'],
+    answer: 'Something that discourages'
+  },
+  {
+    question: 'What does "diatribe" mean?',
+    options: ['A bitter and prolonged verbal attack', 'A supportive comment', 'A brief speech', 'A friendly conversation'],
+    answer: 'A bitter and prolonged verbal attack'
+  },
+  {
+    question: 'What does "dichotomy" mean?',
+    options: ['A division into two contrasting parts', 'A unity', 'A similarity', 'An agreement'],
+    answer: 'A division into two contrasting parts'
+  },
+  {
+    question: 'What does "diffidence" mean?',
+    options: ['Shyness or lack of self-confidence', 'Boldness', 'Arrogance', 'Confidence'],
+    answer: 'Shyness or lack of self-confidence'
+  },
+  {
+    question: 'What does "diffuse" mean?',
+    options: ['To spread out widely', 'To concentrate', 'To gather', 'To condense'],
+    answer: 'To spread out widely'
+  },
+  {
+    question: 'What does "digression" mean?',
+    options: ['A departure from the main topic', 'A focus on the main topic', 'A summary', 'A conclusion'],
+    answer: 'A departure from the main topic'
+  },
+  {
+    question: 'What does "dirge" mean?',
+    options: ['A mournful song or lament', 'A celebratory song', 'A joyful speech', 'A humorous story'],
+    answer: 'A mournful song or lament'
+  },
+  {
+    question: 'What does "disabuse" mean?',
+    options: ['To free someone from a misconception', 'To confuse', 'To mislead', 'To deceive'],
+    answer: 'To free someone from a misconception'
+  },
+  {
+    question: 'What does "discerning" mean?',
+    options: ['Showing good judgment and insight', 'Unperceptive', 'Indifferent', 'Unaware'],
+    answer: 'Showing good judgment and insight'
+  },
+  {
+    question: 'What does "discordant" mean?',
+    options: ['Lacking harmony', 'Harmonious', 'Agreeable', 'Cooperative'],
+    answer: 'Lacking harmony'
+  },
+  {
+    question: 'What does "discredit" mean?',
+    options: ['To harm the reputation of', 'To praise', 'To support', 'To endorse'],
+    answer: 'To harm the reputation of'
+  },
+  {
+    question: 'What does "discrepancy" mean?',
+    options: ['A lack of compatibility or similarity', 'A similarity', 'A conformity', 'A unity'],
+    answer: 'A lack of compatibility or similarity'
+  },
+  {
+    question: 'What does "discrete" mean?',
+    options: ['Distinct or separate', 'Connected', 'Unified', 'Indistinct'],
+    answer: 'Distinct or separate'
+  },
+  {
+    question: 'What does "disingenuous" mean?',
+    options: ['Not candid or sincere', 'Honest', 'Straightforward', 'Genuine'],
+    answer: 'Not candid or sincere'
+  },
+  {
+    question: 'What does "disinterested" mean?',
+    options: ['Unbiased and impartial', 'Selfish', 'Prejudiced', 'Interested'],
+    answer: 'Unbiased and impartial'
+  },
+  {
+    question: 'What does "disjointed" mean?',
+    options: ['Lacking coherence', 'Connected', 'Ordered', 'Systematic'],
+    answer: 'Lacking coherence'
+  },
+  {
+    question: 'What does "dismiss" mean?',
+    options: ['To reject or remove from consideration', 'To accept', 'To support', 'To include'],
+    answer: 'To reject or remove from consideration'
+  },
+  {
+    question: 'What does "disparage" mean?',
+    options: ['To belittle or criticize', 'To praise', 'To endorse', 'To support'],
+    answer: 'To belittle or criticize'
+  },
+  {
+    question: 'What does "disparate" mean?',
+    options: ['Fundamentally different', 'Similar', 'Identical', 'Uniform'],
+    answer: 'Fundamentally different'
+  },
+  {
+    question: 'What does "dissemble" mean?',
+    options: ['To conceal or disguise', 'To reveal', 'To clarify', 'To expose'],
+    answer: 'To conceal or disguise'
+  },
+  {
+    question: 'What does "disseminate" mean?',
+    options: ['To spread or distribute widely', 'To conceal', 'To gather', 'To collect'],
+    answer: 'To spread or distribute widely'
+  },
+  {
+    question: 'What does "dissolution" mean?',
+    options: ['The disintegration or breaking up', 'The union', 'The consolidation', 'The creation'],
+    answer: 'The disintegration or breaking up'
+  },
+  {
+    question: 'What does "dissonance" mean?',
+    options: ['Lack of harmony or agreement', 'Harmony', 'Agreement', 'Symphony'],
+    answer: 'Lack of harmony or agreement'
+  }
+],
+  4: [
+  {
+    question: 'What does "distend" mean?',
+    options: ['To expand or swell', 'To shrink', 'To contract', 'To flatten'],
+    answer: 'To expand or swell'
+  },
+  {
+    question: 'What does "distill" mean?',
+    options: ['To purify or concentrate', 'To dilute', 'To mix', 'To contaminate'],
+    answer: 'To purify or concentrate'
+  },
+  {
+    question: 'What does "diverge" mean?',
+    options: ['To separate or go in different directions', 'To converge', 'To align', 'To unite'],
+    answer: 'To separate or go in different directions'
+  },
+  {
+    question: 'What does "divest" mean?',
+    options: ['To strip or deprive of something', 'To acquire', 'To accumulate', 'To retain'],
+    answer: 'To strip or deprive of something'
+  },
+  {
+    question: 'What does "document" mean?',
+    options: ['To record or provide evidence', 'To erase', 'To ignore', 'To conceal'],
+    answer: 'To record or provide evidence'
+  },
+  {
+    question: 'What does "dogmatic" mean?',
+    options: ['Stubbornly asserting opinions as absolute truth', 'Open-minded', 'Flexible', 'Uncertain'],
+    answer: 'Stubbornly asserting opinions as absolute truth'
+  },
+  {
+    question: 'What does "dormant" mean?',
+    options: ['Inactive or in a state of rest', 'Active', 'Alert', 'Busy'],
+    answer: 'Inactive or in a state of rest'
+  },
+  {
+    question: 'What does "dupe" mean?',
+    options: ['To deceive or trick', 'To assist', 'To support', 'To understand'],
+    answer: 'To deceive or trick'
+  },
+  {
+    question: 'What does "ebullient" mean?',
+    options: ['Overflowing with enthusiasm', 'Reserved', 'Indifferent', 'Apathetic'],
+    answer: 'Overflowing with enthusiasm'
+  },
+  {
+    question: 'What does "eclectic" mean?',
+    options: ['Selecting from a variety of sources', 'Narrow', 'Homogeneous', 'Limited'],
+    answer: 'Selecting from a variety of sources'
+  },
+  {
+    question: 'What does "efficacy" mean?',
+    options: ['The ability to produce a desired result', 'Ineffectiveness', 'Inefficiency', 'Unreliability'],
+    answer: 'The ability to produce a desired result'
+  },
+  {
+    question: 'What does "effrontery" mean?',
+    options: ['Shameless boldness or impudence', 'Timidity', 'Respectfulness', 'Modesty'],
+    answer: 'Shameless boldness or impudence'
+  },
+  {
+    question: 'What does "elegy" mean?',
+    options: ['A mournful poem or song', 'A joyful celebration', 'A humorous story', 'A lively speech'],
+    answer: 'A mournful poem or song'
+  },
+  {
+    question: 'What does "elicit" mean?',
+    options: ['To draw out or evoke', 'To suppress', 'To hide', 'To ignore'],
+    answer: 'To draw out or evoke'
+  },
+  {
+    question: 'What does "embellish" mean?',
+    options: ['To decorate or enhance', 'To simplify', 'To diminish', 'To obscure'],
+    answer: 'To decorate or enhance'
+  },
+  {
+    question: 'What does "empirical" mean?',
+    options: ['Based on observation or experience', 'Theoretical', 'Abstract', 'Hypothetical'],
+    answer: 'Based on observation or experience'
+  },
+  {
+    question: 'What does "emulate" mean?',
+    options: ['To imitate or copy', 'To disregard', 'To ignore', 'To reject'],
+    answer: 'To imitate or copy'
+  },
+  {
+    question: 'What does "endemic" mean?',
+    options: ['Native or confined to a particular area', 'Foreign', 'Epidemic', 'Widespread'],
+    answer: 'Native or confined to a particular area'
+  },
+  {
+    question: 'What does "enervate" mean?',
+    options: ['To weaken or drain of energy', 'To strengthen', 'To invigorate', 'To energize'],
+    answer: 'To weaken or drain of energy'
+  },
+  {
+    question: 'What does "engender" mean?',
+    options: ['To cause or give rise to', 'To eliminate', 'To prevent', 'To destroy'],
+    answer: 'To cause or give rise to'
+  },
+  {
+    question: 'What does "enhance" mean?',
+    options: ['To improve or make better', 'To worsen', 'To damage', 'To reduce'],
+    answer: 'To improve or make better'
+  },
+  {
+    question: 'What does "ephemeral" mean?',
+    options: ['Short-lived or temporary', 'Permanent', 'Enduring', 'Long-lasting'],
+    answer: 'Short-lived or temporary'
+  },
+  {
+    question: 'What does "equanimity" mean?',
+    options: ['Calmness and composure', 'Agitation', 'Excitement', 'Confusion'],
+    answer: 'Calmness and composure'
+  },
+  {
+    question: 'What does "equivocate" mean?',
+    options: ['To be deliberately ambiguous', 'To clarify', 'To explain', 'To reveal'],
+    answer: 'To be deliberately ambiguous'
+  },
+  {
+    question: 'What does "esoteric" mean?',
+    options: ['Intended for a specific or limited audience', 'General', 'Common', 'Simple'],
+    answer: 'Intended for a specific or limited audience'
+  },
+  {
+    question: 'What does "erudite" mean?',
+    options: ['Having extensive knowledge', 'Uneducated', 'Ignorant', 'Illiterate'],
+    answer: 'Having extensive knowledge'
+  },
+  {
+    question: 'What does "eulogy" mean?',
+    options: ['A speech or tribute in praise of someone', 'A criticism', 'A complaint', 'A reprimand'],
+    answer: 'A speech or tribute in praise of someone'
+  },
+  {
+    question: 'What does "euphemism" mean?',
+    options: ['A mild or indirect word substituted for a harsh one', 'A direct statement', 'A blunt remark', 'An insult'],
+    answer: 'A mild or indirect word substituted for a harsh one'
+  },
+  {
+    question: 'What does "exacerbate" mean?',
+    options: ['To make worse or more severe', 'To improve', 'To alleviate', 'To soften'],
+    answer: 'To make worse or more severe'
+  },
+  {
+    question: 'What does "exculpate" mean?',
+    options: ['To clear from blame', 'To accuse', 'To blame', 'To condemn'],
+    answer: 'To clear from blame'
+  },
+  {
+    question: 'What does "exigency" mean?',
+    options: ['An urgent need or demand', 'A trivial matter', 'A minor issue', 'A simple request'],
+    answer: 'An urgent need or demand'
+  },
+  {
+    question: 'What does "extrapolation" mean?',
+    options: ['The act of extending conclusions based on existing data', 'The act of ignoring data', 'The act of simplifying', 'The act of summarizing'],
+    answer: 'The act of extending conclusions based on existing data'
+  },
+  {
+    question: 'What does "facetious" mean?',
+    options: ['Treating serious issues with deliberately inappropriate humor', 'Sincere', 'Formal', 'Serious'],
+    answer: 'Treating serious issues with deliberately inappropriate humor'
+  }
+],
+  5: [
+  {
+    question: 'What does "facilitate" mean?',
+    options: ['To make easier or help', 'To complicate', 'To hinder', 'To obstruct'],
+    answer: 'To make easier or help'
+  },
+  {
+    question: 'What does "fallacious" mean?',
+    options: ['Based on a mistaken belief or unsound reasoning', 'Logical', 'Valid', 'Correct'],
+    answer: 'Based on a mistaken belief or unsound reasoning'
+  },
+  {
+    question: 'What does "fatuous" mean?',
+    options: ['Silly and pointless', 'Serious', 'Wise', 'Thoughtful'],
+    answer: 'Silly and pointless'
+  },
+  {
+    question: 'What does "fawning" mean?',
+    options: ['Excessively flattering or ingratiating', 'Critical', 'Indifferent', 'Neutral'],
+    answer: 'Excessively flattering or ingratiating'
+  },
+  {
+    question: 'What does "felicitous" mean?',
+    options: ['Well-chosen or suited', 'Inappropriate', 'Unfortunate', 'Unfit'],
+    answer: 'Well-chosen or suited'
+  },
+  {
+    question: 'What does "fervor" mean?',
+    options: ['Intense and passionate feeling', 'Apathy', 'Indifference', 'Lack of interest'],
+    answer: 'Intense and passionate feeling'
+  },
+  {
+    question: 'What does "flag" mean?',
+    options: ['To become weak or decline', 'To strengthen', 'To increase', 'To enhance'],
+    answer: 'To become weak or decline'
+  },
+  {
+    question: 'What does "fledgling" mean?',
+    options: ['A beginner or novice', 'An expert', 'A veteran', 'A master'],
+    answer: 'A beginner or novice'
+  },
+  {
+    question: 'What does "flout" mean?',
+    options: ['To openly disregard or mock', 'To obey', 'To respect', 'To conform'],
+    answer: 'To openly disregard or mock'
+  },
+  {
+    question: 'What does "foment" mean?',
+    options: ['To instigate or stir up', 'To calm', 'To suppress', 'To restrain'],
+    answer: 'To instigate or stir up'
+  },
+  {
+    question: 'What does "forestall" mean?',
+    options: ['To prevent or obstruct by taking action ahead of time', 'To encourage', 'To permit', 'To allow'],
+    answer: 'To prevent or obstruct by taking action ahead of time'
+  },
+  {
+    question: 'What does "frugality" mean?',
+    options: ['The quality of being economical with money', 'Extravagance', 'Wastefulness', 'Generosity'],
+    answer: 'The quality of being economical with money'
+  },
+  {
+    question: 'What does "futile" mean?',
+    options: ['Incapable of producing any useful result', 'Effective', 'Successful', 'Helpful'],
+    answer: 'Incapable of producing any useful result'
+  },
+  {
+    question: 'What does "gainsay" mean?',
+    options: ['To deny or contradict', 'To confirm', 'To agree', 'To support'],
+    answer: 'To deny or contradict'
+  },
+  {
+    question: 'What does "garrulous" mean?',
+    options: ['Excessively talkative', 'Reserved', 'Quiet', 'Silent'],
+    answer: 'Excessively talkative'
+  },
+  {
+    question: 'What does "goad" mean?',
+    options: ['To provoke or annoy someone', 'To calm', 'To appease', 'To soothe'],
+    answer: 'To provoke or annoy someone'
+  },
+  {
+    question: 'What does "gouge" mean?',
+    options: ['To cut or scoop out roughly', 'To mend', 'To repair', 'To smooth'],
+    answer: 'To cut or scoop out roughly'
+  },
+  {
+    question: 'What does "grandiloquent" mean?',
+    options: ['Pompous or extravagant in language', 'Simple', 'Modest', 'Humble'],
+    answer: 'Pompous or extravagant in language'
+  },
+  {
+    question: 'What does "gregarious" mean?',
+    options: ['Sociable and outgoing', 'Reserved', 'Shy', 'Introverted'],
+    answer: 'Sociable and outgoing'
+  },
+  {
+    question: 'What does "guileless" mean?',
+    options: ['Without deceit or cunning', 'Cunning', 'Deceptive', 'Manipulative'],
+    answer: 'Without deceit or cunning'
+  },
+  {
+    question: 'What does "gullible" mean?',
+    options: ['Easily fooled or deceived', 'Skeptical', 'Discerning', 'Suspicious'],
+    answer: 'Easily fooled or deceived'
+  },
+  {
+    question: 'What does "harangue" mean?',
+    options: ['A lengthy and aggressive speech', 'A brief comment', 'A short note', 'A simple greeting'],
+    answer: 'A lengthy and aggressive speech'
+  },
+  {
+    question: 'What does "homogeneous" mean?',
+    options: ['Of the same kind or nature', 'Diverse', 'Varied', 'Different'],
+    answer: 'Of the same kind or nature'
+  },
+  {
+    question: 'What does "hyperbole" mean?',
+    options: ['Exaggerated statements not meant to be taken literally', 'Understatement', 'Accuracy', 'Precision'],
+    answer: 'Exaggerated statements not meant to be taken literally'
+  },
+  {
+    question: 'What does "iconoclastic" mean?',
+    options: ['Attacking or rejecting traditional beliefs', 'Conservative', 'Traditional', 'Conventional'],
+    answer: 'Attacking or rejecting traditional beliefs'
+  },
+  {
+    question: 'What does "idolatry" mean?',
+    options: ['Worship of idols or excessive devotion', 'Indifference', 'Disrespect', 'Apathy'],
+    answer: 'Worship of idols or excessive devotion'
+  },
+  {
+    question: 'What does "immutable" mean?',
+    options: ['Unchanging over time', 'Changeable', 'Alterable', 'Variable'],
+    answer: 'Unchanging over time'
+  },
+  {
+    question: 'What does "impair" mean?',
+    options: ['To weaken or damage', 'To strengthen', 'To enhance', 'To repair'],
+    answer: 'To weaken or damage'
+  },
+  {
+    question: 'What does "impassive" mean?',
+    options: ['Not showing emotion', 'Expressive', 'Emotional', 'Sensitive'],
+    answer: 'Not showing emotion'
+  },
+  {
+    question: 'What does "impede" mean?',
+    options: ['To hinder or obstruct', 'To facilitate', 'To help', 'To advance'],
+    answer: 'To hinder or obstruct'
+  },
+  {
+    question: 'What does "impermeable" mean?',
+    options: ['Not allowing fluids to pass through', 'Permeable', 'Absorbent', 'Penetrable'],
+    answer: 'Not allowing fluids to pass through'
+  },
+  {
+    question: 'What does "imperturbable" mean?',
+    options: ['Not easily upset or disturbed', 'Easily agitated', 'Sensitive', 'Nervous'],
+    answer: 'Not easily upset or disturbed'
+  },
+  {
+    question: 'What does "impervious" mean?',
+    options: ['Not allowing passage through', 'Permeable', 'Accessible', 'Passable'],
+    answer: 'Not allowing passage through'
+  }
+],
+  6: [
+  {
+    question: 'What does "implacable" mean?',
+    options: ['Unable to be appeased or pacified', 'Easily satisfied', 'Flexible', 'Forgiving'],
+    answer: 'Unable to be appeased or pacified'
+  },
+  {
+    question: 'What does "implicit" mean?',
+    options: ['Implied though not plainly expressed', 'Explicit', 'Clear', 'Obvious'],
+    answer: 'Implied though not plainly expressed'
+  },
+  {
+    question: 'What does "implode" mean?',
+    options: ['To collapse inwardly', 'To explode outwardly', 'To expand', 'To inflate'],
+    answer: 'To collapse inwardly'
+  },
+  {
+    question: 'What does "inadvertently" mean?',
+    options: ['Unintentionally or accidentally', 'Deliberately', 'Consciously', 'Purposefully'],
+    answer: 'Unintentionally or accidentally'
+  },
+  {
+    question: 'What does "inchoate" mean?',
+    options: ['Just begun and not fully formed', 'Completed', 'Well-developed', 'Established'],
+    answer: 'Just begun and not fully formed'
+  },
+  {
+    question: 'What does "incongruity" mean?',
+    options: ['The state of being out of place or unsuitable', 'Appropriateness', 'Consistency', 'Harmony'],
+    answer: 'The state of being out of place or unsuitable'
+  },
+  {
+    question: 'What does "inconsequential" mean?',
+    options: ['Not important or significant', 'Critical', 'Relevant', 'Major'],
+    answer: 'Not important or significant'
+  },
+  {
+    question: 'What does "incorporate" mean?',
+    options: ['To include or integrate', 'To exclude', 'To separate', 'To isolate'],
+    answer: 'To include or integrate'
+  },
+  {
+    question: 'What does "indeterminate" mean?',
+    options: ['Not exactly known or defined', 'Clear', 'Fixed', 'Determined'],
+    answer: 'Not exactly known or defined'
+  },
+  {
+    question: 'What does "indigence" mean?',
+    options: ['Extreme poverty', 'Wealth', 'Comfort', 'Affluence'],
+    answer: 'Extreme poverty'
+  },
+  {
+    question: 'What does "indolent" mean?',
+    options: ['Habitually lazy or idle', 'Active', 'Energetic', 'Hardworking'],
+    answer: 'Habitually lazy or idle'
+  },
+  {
+    question: 'What does "inert" mean?',
+    options: ['Lacking the ability to move', 'Active', 'Dynamic', 'Energetic'],
+    answer: 'Lacking the ability to move'
+  },
+  {
+    question: 'What does "ingenuous" mean?',
+    options: ['Showing innocence or childlike simplicity', 'Dishonest', 'Deceptive', 'Sly'],
+    answer: 'Showing innocence or childlike simplicity'
+  },
+  {
+    question: 'What does "inherent" mean?',
+    options: ['Existing as a natural part of something', 'External', 'Superficial', 'Acquired'],
+    answer: 'Existing as a natural part of something'
+  },
+  {
+    question: 'What does "innocuous" mean?',
+    options: ['Harmless or not likely to offend', 'Harmful', 'Dangerous', 'Injurious'],
+    answer: 'Harmless or not likely to offend'
+  },
+  {
+    question: 'What does "insensible" mean?',
+    options: ['Unaware or indifferent', 'Sensitive', 'Perceptive', 'Responsive'],
+    answer: 'Unaware or indifferent'
+  },
+  {
+    question: 'What does "insinuate" mean?',
+    options: ['To suggest or hint subtly', 'To declare openly', 'To state clearly', 'To announce'],
+    answer: 'To suggest or hint subtly'
+  },
+  {
+    question: 'What does "insipid" mean?',
+    options: ['Lacking flavor or interest', 'Flavorful', 'Exciting', 'Stimulating'],
+    answer: 'Lacking flavor or interest'
+  },
+  {
+    question: 'What does "insularity" mean?',
+    options: ['Lack of interest in cultures outside one\'s own', 'Openness', 'Inclusiveness', 'Global perspective'],
+    answer: 'Lack of interest in cultures outside one\'s own'
+  },
+  {
+    question: 'What does "intractable" mean?',
+    options: ['Difficult to manage or control', 'Easy', 'Malleable', 'Docile'],
+    answer: 'Difficult to manage or control'
+  },
+  {
+    question: 'What does "intransigence" mean?',
+    options: ['Refusal to change one\'s views or to agree', 'Flexibility', 'Adaptability', 'Cooperation'],
+    answer: 'Refusal to change one\'s views or to agree'
+  },
+  {
+    question: 'What does "inundate" mean?',
+    options: ['To overwhelm with a large number or amount', 'To alleviate', 'To reduce', 'To empty'],
+    answer: 'To overwhelm with a large number or amount'
+  },
+  {
+    question: 'What does "inured" mean?',
+    options: ['Accustomed to something undesirable', 'Unaware', 'Sensitive', 'New'],
+    answer: 'Accustomed to something undesirable'
+  },
+  {
+    question: 'What does "invective" mean?',
+    options: ['Insulting or abusive language', 'Compliment', 'Praise', 'Encouragement'],
+    answer: 'Insulting or abusive language'
+  },
+  {
+    question: 'What does "irascible" mean?',
+    options: ['Easily provoked to anger', 'Calm', 'Serene', 'Tranquil'],
+    answer: 'Easily provoked to anger'
+  },
+  {
+    question: 'What does "irresolute" mean?',
+    options: ['Uncertain or indecisive', 'Decisive', 'Certain', 'Confident'],
+    answer: 'Uncertain or indecisive'
+  },
+  {
+    question: 'What does "itinerary" mean?',
+    options: ['A planned route or journey', 'Destination', 'Final location', 'Resting place'],
+    answer: 'A planned route or journey'
+  },
+  {
+    question: 'What does "laconic" mean?',
+    options: ['Using few words', 'Verbose', 'Talkative', 'Expansive'],
+    answer: 'Using few words'
+  },
+  {
+    question: 'What does "lassitude" mean?',
+    options: ['A state of physical or mental weariness', 'Energy', 'Vigor', 'Vitality'],
+    answer: 'A state of physical or mental weariness'
+  },
+  {
+    question: 'What does "latent" mean?',
+    options: ['Existing but not yet developed or manifest', 'Obvious', 'Clear', 'Apparent'],
+    answer: 'Existing but not yet developed or manifest'
+  },
+  {
+    question: 'What does "laud" mean?',
+    options: ['To praise highly', 'To criticize', 'To denounce', 'To condemn'],
+    answer: 'To praise highly'
+  },
+  {
+    question: 'What does "lethargic" mean?',
+    options: ['Sluggish and lacking energy', 'Energetic', 'Vigorous', 'Active'],
+    answer: 'Sluggish and lacking energy'
+  },
+  {
+    question: 'What does "levee" mean?',
+    options: ['A raised embankment to prevent flooding', 'A valley', 'A ditch', 'A mountain'],
+    answer: 'A raised embankment to prevent flooding'
+  }
+],
+  7: [
+  {
+    question: 'What does "levity" mean?',
+    options: ['Lightness of mind or behavior', 'Seriousness', 'Gravity', 'Solemnity'],
+    answer: 'Lightness of mind or behavior'
+  },
+  {
+    question: 'What does "log" mean?',
+    options: ['A record of events or observations', 'A type of tree', 'A piece of clothing', 'A tool'],
+    answer: 'A record of events or observations'
+  },
+  {
+    question: 'What does "loquacious" mean?',
+    options: ['Very talkative', 'Reserved', 'Quiet', 'Reticent'],
+    answer: 'Very talkative'
+  },
+  {
+    question: 'What does "lucid" mean?',
+    options: ['Clear and easy to understand', 'Confusing', 'Opaque', 'Ambiguous'],
+    answer: 'Clear and easy to understand'
+  },
+  {
+    question: 'What does "luminous" mean?',
+    options: ['Emitting light', 'Dull', 'Dark', 'Shadowy'],
+    answer: 'Emitting light'
+  },
+  {
+    question: 'What does "magnanimity" mean?',
+    options: ['Generosity and nobility of spirit', 'Selfishness', 'Greed', 'Avarice'],
+    answer: 'Generosity and nobility of spirit'
+  },
+  {
+    question: 'What does "malingerer" mean?',
+    options: ['One who pretends to be ill to avoid work', 'A diligent worker', 'An overachiever', 'A diligent student'],
+    answer: 'One who pretends to be ill to avoid work'
+  },
+  {
+    question: 'What does "malleable" mean?',
+    options: ['Capable of being shaped or molded', 'Rigid', 'Unchangeable', 'Inflexible'],
+    answer: 'Capable of being shaped or molded'
+  },
+  {
+    question: 'What does "maverick" mean?',
+    options: ['An independent-minded person', 'A conformist', 'A follower', 'An adherent'],
+    answer: 'An independent-minded person'
+  },
+  {
+    question: 'What does "mendacious" mean?',
+    options: ['Dishonest or untruthful', 'Honest', 'Truthful', 'Sincere'],
+    answer: 'Dishonest or untruthful'
+  },
+  {
+    question: 'What does "metamorphosis" mean?',
+    options: ['A change in form or nature', 'Stagnation', 'Constancy', 'Consistency'],
+    answer: 'A change in form or nature'
+  },
+  {
+    question: 'What does "meticulous" mean?',
+    options: ['Showing great attention to detail', 'Careless', 'Negligent', 'Unconcerned'],
+    answer: 'Showing great attention to detail'
+  },
+  {
+    question: 'What does "misanthrope" mean?',
+    options: ['One who dislikes or distrusts people', 'A philanthropist', 'A socialite', 'An optimist'],
+    answer: 'One who dislikes or distrusts people'
+  },
+  {
+    question: 'What does "mitigate" mean?',
+    options: ['To make less severe or intense', 'To worsen', 'To exacerbate', 'To intensify'],
+    answer: 'To make less severe or intense'
+  },
+  {
+    question: 'What does "mollify" mean?',
+    options: ['To soothe or calm', 'To agitate', 'To provoke', 'To irritate'],
+    answer: 'To soothe or calm'
+  },
+  {
+    question: 'What does "morose" mean?',
+    options: ['Sullen or gloomy', 'Cheerful', 'Joyful', 'Optimistic'],
+    answer: 'Sullen or gloomy'
+  },
+  {
+    question: 'What does "mundane" mean?',
+    options: ['Ordinary or dull', 'Exciting', 'Extraordinary', 'Unusual'],
+    answer: 'Ordinary or dull'
+  },
+  {
+    question: 'What does "negate" mean?',
+    options: ['To nullify or make ineffective', 'To affirm', 'To confirm', 'To validate'],
+    answer: 'To nullify or make ineffective'
+  },
+  {
+    question: 'What does "neophyte" mean?',
+    options: ['A beginner or novice', 'An expert', 'A veteran', 'A professional'],
+    answer: 'A beginner or novice'
+  },
+  {
+    question: 'What does "obdurate" mean?',
+    options: ['Stubbornly resistant to persuasion', 'Flexible', 'Compliant', 'Easily persuaded'],
+    answer: 'Stubbornly resistant to persuasion'
+  },
+  {
+    question: 'What does "obsequious" mean?',
+    options: ['Excessively eager to please or serve', 'Independent', 'Assertive', 'Confident'],
+    answer: 'Excessively eager to please or serve'
+  },
+  {
+    question: 'What does "obviate" mean?',
+    options: ['To remove or make unnecessary', 'To create', 'To introduce', 'To complicate'],
+    answer: 'To remove or make unnecessary'
+  },
+  {
+    question: 'What does "occlude" mean?',
+    options: ['To block or obstruct', 'To open', 'To clear', 'To uncover'],
+    answer: 'To block or obstruct'
+  },
+  {
+    question: 'What does "officious" mean?',
+    options: ['Intrusively eager to offer help or advice', 'Reserved', 'Aloof', 'Detached'],
+    answer: 'Intrusively eager to offer help or advice'
+  },
+  {
+    question: 'What does "onerous" mean?',
+    options: ['Burdensome or oppressive', 'Light', 'Easy', 'Simple'],
+    answer: 'Burdensome or oppressive'
+  },
+  {
+    question: 'What does "opprobrium" mean?',
+    options: ['Harsh criticism or disgrace', 'Praise', 'Compliment', 'Approval'],
+    answer: 'Harsh criticism or disgrace'
+  },
+  {
+    question: 'What does "oscillate" mean?',
+    options: ['To swing back and forth', 'To remain still', 'To stabilize', 'To stay constant'],
+    answer: 'To swing back and forth'
+  },
+  {
+    question: 'What does "ostentatious" mean?',
+    options: ['Showy or pretentious', 'Modest', 'Unassuming', 'Reserved'],
+    answer: 'Showy or pretentious'
+  },
+  {
+    question: 'What does "paragon" mean?',
+    options: ['A model of excellence or perfection', 'An average example', 'A mediocrity', 'An inferior model'],
+    answer: 'A model of excellence or perfection'
+  },
+  {
+    question: 'What does "partisan" mean?',
+    options: ['A strong supporter of a party or cause', 'Neutral', 'Impartial', 'Detached'],
+    answer: 'A strong supporter of a party or cause'
+  },
+  {
+    question: 'What does "pathological" mean?',
+    options: ['Relating to or caused by disease', 'Healthy', 'Normal', 'Unusual'],
+    answer: 'Relating to or caused by disease'
+  },
+  {
+    question: 'What does "paucity" mean?',
+    options: ['Scarcity or lack', 'Abundance', 'Plenty', 'Surplus'],
+    answer: 'Scarcity or lack'
+  },
+  {
+    question: 'What does "pedantic" mean?',
+    options: ['Excessively concerned with minor details or rules', 'Flexible', 'General', 'Casual'],
+    answer: 'Excessively concerned with minor details or rules'
+  }
+],
+  8: [
+  {
+    question: 'What does "penchant" mean?',
+    options: ['A strong liking or inclination', 'A dislike', 'A disinterest', 'A neutral stance'],
+    answer: 'A strong liking or inclination'
+  },
+  {
+    question: 'What does "penury" mean?',
+    options: ['Extreme poverty', 'Wealth', 'Abundance', 'Comfort'],
+    answer: 'Extreme poverty'
+  },
+  {
+    question: 'What does "perennial" mean?',
+    options: ['Lasting for a long time or indefinitely', 'Temporary', 'Short-lived', 'Ephemeral'],
+    answer: 'Lasting for a long time or indefinitely'
+  },
+  {
+    question: 'What does "perfidious" mean?',
+    options: ['Deceitful and untrustworthy', 'Honest', 'Reliable', 'Loyal'],
+    answer: 'Deceitful and untrustworthy'
+  },
+  {
+    question: 'What does "perfunctory" mean?',
+    options: ['Carried out with minimum effort or reflection', 'Thorough', 'Detailed', 'Careful'],
+    answer: 'Carried out with minimum effort or reflection'
+  },
+  {
+    question: 'What does "permeable" mean?',
+    options: ['Allowing fluids or gases to pass through', 'Impermeable', 'Solid', 'Opaque'],
+    answer: 'Allowing fluids or gases to pass through'
+  },
+  {
+    question: 'What does "pervasive" mean?',
+    options: ['Spreading widely throughout', 'Limited', 'Contained', 'Restricted'],
+    answer: 'Spreading widely throughout'
+  },
+  {
+    question: 'What does "phlegmatic" mean?',
+    options: ['Calm and composed', 'Excitable', 'Agitated', 'Nervous'],
+    answer: 'Calm and composed'
+  },
+  {
+    question: 'What does "piety" mean?',
+    options: ['Devotion and reverence to God or religious practices', 'Indifference', 'Secularism', 'Apathy'],
+    answer: 'Devotion and reverence to God or religious practices'
+  },
+  {
+    question: 'What does "placate" mean?',
+    options: ['To make someone less angry or hostile', 'To aggravate', 'To provoke', 'To irritate'],
+    answer: 'To make someone less angry or hostile'
+  },
+  {
+    question: 'What does "plasticity" mean?',
+    options: ['The quality of being easily shaped or molded', 'Rigidity', 'Stiffness', 'Unyieldingness'],
+    answer: 'The quality of being easily shaped or molded'
+  },
+  {
+    question: 'What does "platitude" mean?',
+    options: ['A remark or statement that is dull or uninspired', 'Insightful comment', 'Original thought', 'Creative idea'],
+    answer: 'A remark or statement that is dull or uninspired'
+  },
+  {
+    question: 'What does "plethora" mean?',
+    options: ['An excess or abundance of something', 'Scarcity', 'Deficiency', 'Shortage'],
+    answer: 'An excess or abundance of something'
+  },
+  {
+    question: 'What does "plummet" mean?',
+    options: ['To fall or drop straight down at high speed', 'To rise', 'To remain stable', 'To hover'],
+    answer: 'To fall or drop straight down at high speed'
+  },
+  {
+    question: 'What does "porous" mean?',
+    options: ['Having holes or spaces that allow liquid or air to pass through', 'Solid', 'Impenetrable', 'Dense'],
+    answer: 'Having holes or spaces that allow liquid or air to pass through'
+  },
+  {
+    question: 'What does "pragmatic" mean?',
+    options: ['Dealing with things sensibly and realistically', 'Idealistic', 'Theoretical', 'Unrealistic'],
+    answer: 'Dealing with things sensibly and realistically'
+  },
+  {
+    question: 'What does "preamble" mean?',
+    options: ['An introductory statement', 'A conclusion', 'A summary', 'A footnote'],
+    answer: 'An introductory statement'
+  },
+  {
+    question: 'What does "precarious" mean?',
+    options: ['Not securely held or in a dangerous state', 'Stable', 'Secure', 'Safe'],
+    answer: 'Not securely held or in a dangerous state'
+  },
+  {
+    question: 'What does "precipitate" mean?',
+    options: ['To cause something to happen suddenly or prematurely', 'To delay', 'To prevent', 'To avoid'],
+    answer: 'To cause something to happen suddenly or prematurely'
+  },
+  {
+    question: 'What does "precursor" mean?',
+    options: ['A person or thing that comes before another', 'A result', 'A consequence', 'A follower'],
+    answer: 'A person or thing that comes before another'
+  },
+  {
+    question: 'What does "presumptuous" mean?',
+    options: ['Failing to observe the limits of what is appropriate', 'Respectful', 'Cautious', 'Reserved'],
+    answer: 'Failing to observe the limits of what is appropriate'
+  },
+  {
+    question: 'What does "prevaricate" mean?',
+    options: ['To speak or act in an evasive way', 'To be straightforward', 'To be honest', 'To be transparent'],
+    answer: 'To speak or act in an evasive way'
+  },
+  {
+    question: 'What does "pristine" mean?',
+    options: ['In its original condition; unspoiled', 'Damaged', 'Tarnished', 'Altered'],
+    answer: 'In its original condition; unspoiled'
+  },
+  {
+    question: 'What does "probity" mean?',
+    options: ['The quality of having strong moral principles', 'Dishonesty', 'Corruption', 'Immorality'],
+    answer: 'The quality of having strong moral principles'
+  },
+  {
+    question: 'What does "problematic" mean?',
+    options: ['Full of difficulties or problems', 'Simple', 'Straightforward', 'Clear'],
+    answer: 'Full of difficulties or problems'
+  },
+  {
+    question: 'What does "prodigal" mean?',
+    options: ['Wastfully extravagant or lavish', 'Frugal', 'Economical', 'Thrifty'],
+    answer: 'Wastfully extravagant or lavish'
+  },
+  {
+    question: 'What does "profound" mean?',
+    options: ['Having deep meaning or significance', 'Shallow', 'Superficial', 'Trivial'],
+    answer: 'Having deep meaning or significance'
+  },
+  {
+    question: 'What does "prohibitive" mean?',
+    options: ['So high as to prevent use or purchase', 'Affordable', 'Reasonable', 'Accessible'],
+    answer: 'So high as to prevent use or purchase'
+  },
+  {
+    question: 'What does "proliferate" mean?',
+    options: ['To increase rapidly in number', 'To decrease', 'To diminish', 'To reduce'],
+    answer: 'To increase rapidly in number'
+  },
+  {
+    question: 'What does "propensity" mean?',
+    options: ['A natural inclination or tendency', 'Disinterest', 'Aversion', 'Indifference'],
+    answer: 'A natural inclination or tendency'
+  },
+  {
+    question: 'What does "propitiate" mean?',
+    options: ['To win or regain the favor of someone', 'To alienate', 'To upset', 'To antagonize'],
+    answer: 'To win or regain the favor of someone'
+  },
+  {
+    question: 'What does "propriety" mean?',
+    options: ['Conformity to established standards of behavior', 'Impropriety', 'Insolence', 'Disrespect'],
+    answer: 'Conformity to established standards of behavior'
+  },
+  {
+    question: 'What does "proscribe" mean?',
+    options: ['To forbid or prohibit', 'To allow', 'To permit', 'To endorse'],
+    answer: 'To forbid or prohibit'
+  }
+],
+  9: [
+  {
+    question: 'What does "pungent" mean?',
+    options: ['Having a strong, sharp taste or smell', 'Mild', 'Sweet', 'Neutral'],
+    answer: 'Having a strong, sharp taste or smell'
+  },
+  {
+    question: 'What does "qualified" mean?',
+    options: ['Having the necessary skills or experience', 'Unskilled', 'Unqualified', 'Inexperienced'],
+    answer: 'Having the necessary skills or experience'
+  },
+  {
+    question: 'What does "quibble" mean?',
+    options: ['To argue or raise objections about a trivial matter', 'To agree', 'To concede', 'To accept'],
+    answer: 'To argue or raise objections about a trivial matter'
+  },
+  {
+    question: 'What does "quiescent" mean?',
+    options: ['In a state of inactivity or rest', 'Active', 'Vibrant', 'Energetic'],
+    answer: 'In a state of inactivity or rest'
+  },
+  {
+    question: 'What does "rarefied" mean?',
+    options: ['Thin or lofty', 'Dense', 'Common', 'Ordinary'],
+    answer: 'Thin or lofty'
+  },
+  {
+    question: 'What does "recalcitrant" mean?',
+    options: ['Stubbornly resistant to authority or control', 'Obedient', 'Compliant', 'Submissive'],
+    answer: 'Stubbornly resistant to authority or control'
+  },
+  {
+    question: 'What does "recant" mean?',
+    options: ['To withdraw or retract a statement', 'To affirm', 'To confirm', 'To endorse'],
+    answer: 'To withdraw or retract a statement'
+  },
+  {
+    question: 'What does "recluse" mean?',
+    options: ['A person who lives in solitude', 'A socialite', 'An extrovert', 'A public figure'],
+    answer: 'A person who lives in solitude'
+  },
+  {
+    question: 'What does "recondite" mean?',
+    options: ['Little known or obscure', 'Familiar', 'Commonplace', 'Easily understood'],
+    answer: 'Little known or obscure'
+  },
+  {
+    question: 'What does "refractory" mean?',
+    options: ['Resistant to control or authority', 'Compliant', 'Obedient', 'Docile'],
+    answer: 'Resistant to control or authority'
+  },
+  {
+    question: 'What does "refute" mean?',
+    options: ['To prove something to be false', 'To confirm', 'To support', 'To validate'],
+    answer: 'To prove something to be false'
+  },
+  {
+    question: 'What does "relegate" mean?',
+    options: ['To assign to a lower position', 'To promote', 'To elevate', 'To advance'],
+    answer: 'To assign to a lower position'
+  },
+  {
+    question: 'What does "reproach" mean?',
+    options: ['To express disapproval or disappointment', 'To praise', 'To compliment', 'To approve'],
+    answer: 'To express disapproval or disappointment'
+  },
+  {
+    question: 'What does "reprobate" mean?',
+    options: ['A morally unprincipled person', 'A saint', 'A moral individual', 'A virtuous person'],
+    answer: 'A morally unprincipled person'
+  },
+  {
+    question: 'What does "repudiate" mean?',
+    options: ['To reject or disown', 'To accept', 'To embrace', 'To support'],
+    answer: 'To reject or disown'
+  },
+  {
+    question: 'What does "rescind" mean?',
+    options: ['To revoke or cancel', 'To enforce', 'To confirm', 'To establish'],
+    answer: 'To revoke or cancel'
+  },
+  {
+    question: 'What does "resolution" mean?',
+    options: ['A firm decision or intention', 'Indecision', 'Uncertainty', 'Confusion'],
+    answer: 'A firm decision or intention'
+  },
+  {
+    question: 'What does "resolve" mean?',
+    options: ['To find a solution or decide', 'To avoid', 'To ignore', 'To hesitate'],
+    answer: 'To find a solution or decide'
+  },
+  {
+    question: 'What does "reticent" mean?',
+    options: ['Reluctant to speak or reveal', 'Talkative', 'Open', 'Outgoing'],
+    answer: 'Reluctant to speak or reveal'
+  },
+  {
+    question: 'What does "reverent" mean?',
+    options: ['Showing deep respect', 'Disrespectful', 'Indifferent', 'Apathetic'],
+    answer: 'Showing deep respect'
+  },
+  {
+    question: 'What does "sage" mean?',
+    options: ['A wise or judicious person', 'A fool', 'An ignoramus', 'An amateur'],
+    answer: 'A wise or judicious person'
+  },
+  {
+    question: 'What does "salubrious" mean?',
+    options: ['Health-giving or healthy', 'Unhealthy', 'Harmful', 'Detrimental'],
+    answer: 'Health-giving or healthy'
+  },
+  {
+    question: 'What does "sanction" mean?',
+    options: ['A penalty or coercive measure', 'A reward', 'An approval', 'A benefit'],
+    answer: 'A penalty or coercive measure'
+  },
+  {
+    question: 'What does "satiate" mean?',
+    options: ['To satisfy fully', 'To starve', 'To deprive', 'To neglect'],
+    answer: 'To satisfy fully'
+  },
+  {
+    question: 'What does "saturate" mean?',
+    options: ['To soak or fill completely', 'To dry', 'To deplete', 'To empty'],
+    answer: 'To soak or fill completely'
+  },
+  {
+    question: 'What does "savor" mean?',
+    options: ['To enjoy or appreciate the taste of something', 'To ignore', 'To disregard', 'To neglect'],
+    answer: 'To enjoy or appreciate the taste of something'
+  },
+  {
+    question: 'What does "secrete" mean?',
+    options: ['To produce and release a substance', 'To conceal', 'To hide', 'To cover'],
+    answer: 'To produce and release a substance'
+  },
+  {
+    question: 'What does "shard" mean?',
+    options: ['A piece of broken ceramic, metal, or glass', 'A whole object', 'An intact item', 'A complete unit'],
+    answer: 'A piece of broken ceramic, metal, or glass'
+  },
+  {
+    question: 'What does "skeptic" mean?',
+    options: ['A person who doubts or questions', 'A believer', 'A supporter', 'An enthusiast'],
+    answer: 'A person who doubts or questions'
+  },
+  {
+    question: 'What does "solicitous" mean?',
+    options: ['Showing concern or care', 'Indifferent', 'Negligent', 'Unconcerned'],
+    answer: 'Showing concern or care'
+  },
+  {
+    question: 'What does "soporific" mean?',
+    options: ['Causing sleepiness', 'Stimulating', 'Exciting', 'Energizing'],
+    answer: 'Causing sleepiness'
+  },
+  {
+    question: 'What does "specious" mean?',
+    options: ['Deceptively attractive or misleading', 'Genuine', 'Honest', 'True'],
+    answer: 'Deceptively attractive or misleading'
+  },
+  {
+    question: 'What does "spectrum" mean?',
+    options: ['A range of different things', 'A single item', 'A narrow focus', 'A limited view'],
+    answer: 'A range of different things'
+  }
+],
+  10: [
+  {
+    question: 'What does "sporadic" mean?',
+    options: ['Occurring at irregular intervals', 'Constant', 'Frequent', 'Regular'],
+    answer: 'Occurring at irregular intervals'
+  },
+  {
+    question: 'What does "stigma" mean?',
+    options: ['A mark of disgrace or shame', 'A positive attribute', 'A reward', 'A compliment'],
+    answer: 'A mark of disgrace or shame'
+  },
+  {
+    question: 'What does "stint" mean?',
+    options: ['A period of time devoted to a task', 'A permanent position', 'A leisurely time', 'An extended break'],
+    answer: 'A period of time devoted to a task'
+  },
+  {
+    question: 'What does "stipulate" mean?',
+    options: ['To specify or demand as a condition', 'To ignore', 'To forget', 'To overlook'],
+    answer: 'To specify or demand as a condition'
+  },
+  {
+    question: 'What does "stolid" mean?',
+    options: ['Showing little emotion or sensitivity', 'Emotional', 'Expressive', 'Sensitive'],
+    answer: 'Showing little emotion or sensitivity'
+  },
+  {
+    question: 'What does "striated" mean?',
+    options: ['Marked with stripes or grooves', 'Smooth', 'Plain', 'Flat'],
+    answer: 'Marked with stripes or grooves'
+  },
+  {
+    question: 'What does "strut" mean?',
+    options: ['To walk with a proud, stiff gait', 'To slouch', 'To trudge', 'To creep'],
+    answer: 'To walk with a proud, stiff gait'
+  },
+  {
+    question: 'What does "subpoena" mean?',
+    options: ['A legal order to attend court', 'A suggestion', 'An invitation', 'A request'],
+    answer: 'A legal order to attend court'
+  },
+  {
+    question: 'What does "subside" mean?',
+    options: ['To become less intense or active', 'To increase', 'To escalate', 'To intensify'],
+    answer: 'To become less intense or active'
+  },
+  {
+    question: 'What does "substantiate" mean?',
+    options: ['To provide evidence to support', 'To deny', 'To invalidate', 'To ignore'],
+    answer: 'To provide evidence to support'
+  },
+  {
+    question: 'What does "supersede" mean?',
+    options: ['To take the place of something previously in use', 'To follow', 'To support', 'To continue'],
+    answer: 'To take the place of something previously in use'
+  },
+  {
+    question: 'What does "supposition" mean?',
+    options: ['An assumption or hypothesis', 'A fact', 'A certainty', 'A reality'],
+    answer: 'An assumption or hypothesis'
+  },
+  {
+    question: 'What does "tacit" mean?',
+    options: ['Understood or implied without being stated', 'Explicit', 'Clear', 'Direct'],
+    answer: 'Understood or implied without being stated'
+  },
+  {
+    question: 'What does "tangential" mean?',
+    options: ['Only slightly related or relevant', 'Directly related', 'Central', 'Essential'],
+    answer: 'Only slightly related or relevant'
+  },
+  {
+    question: 'What does "tenuous" mean?',
+    options: ['Very weak or insubstantial', 'Strong', 'Robust', 'Solid'],
+    answer: 'Very weak or insubstantial'
+  },
+  {
+    question: 'What does "tirade" mean?',
+    options: ['A long, angry speech', 'A compliment', 'A short remark', 'A brief statement'],
+    answer: 'A long, angry speech'
+  },
+  {
+    question: 'What does "torpor" mean?',
+    options: ['A state of physical or mental inactivity', 'Energy', 'Activity', 'Vigor'],
+    answer: 'A state of physical or mental inactivity'
+  },
+  {
+    question: 'What does "tortuous" mean?',
+    options: ['Full of twists and turns', 'Straight', 'Simple', 'Clear'],
+    answer: 'Full of twists and turns'
+  },
+  {
+    question: 'What does "tractable" mean?',
+    options: ['Easily managed or controlled', 'Unmanageable', 'Stubborn', 'Rebellious'],
+    answer: 'Easily managed or controlled'
+  },
+  {
+    question: 'What does "transgression" mean?',
+    options: ['A violation of a law or command', 'Compliance', 'Adherence', 'Obedience'],
+    answer: 'A violation of a law or command'
+  },
+  {
+    question: 'What does "truculence" mean?',
+    options: ['Aggressiveness or ferocity', 'Gentleness', 'Friendliness', 'Mildness'],
+    answer: 'Aggressiveness or ferocity'
+  },
+  {
+    question: 'What does "vacillate" mean?',
+    options: ['To waver between different opinions or actions', 'To decide', 'To commit', 'To resolve'],
+    answer: 'To waver between different opinions or actions'
+  },
+  {
+    question: 'What does "venerate" mean?',
+    options: ['To regard with great respect', 'To disregard', 'To disrespect', 'To scorn'],
+    answer: 'To regard with great respect'
+  },
+  {
+    question: 'What does "veracious" mean?',
+    options: ['Habitually truthful', 'Deceptive', 'False', 'Untrustworthy'],
+    answer: 'Habitually truthful'
+  },
+  {
+    question: 'What does "verbose" mean?',
+    options: ['Using more words than necessary', 'Concise', 'Brief', 'Succinct'],
+    answer: 'Using more words than necessary'
+  },
+  {
+    question: 'What does "viable" mean?',
+    options: ['Capable of working successfully', 'Unworkable', 'Impractical', 'Unfeasible'],
+    answer: 'Capable of working successfully'
+  },
+  {
+    question: 'What does "viscous" mean?',
+    options: ['Having a thick, sticky consistency', 'Fluid', 'Thin', 'Watery'],
+    answer: 'Having a thick, sticky consistency'
+  },
+  {
+    question: 'What does "vituperative" mean?',
+    options: ['Bitter and abusive', 'Pleasant', 'Kind', 'Friendly'],
+    answer: 'Bitter and abusive'
+  },
+  {
+    question: 'What does "volatile" mean?',
+    options: ['Likely to change rapidly and unpredictably', 'Stable', 'Steady', 'Predictable'],
+    answer: 'Likely to change rapidly and unpredictably'
+  },
+  {
+    question: 'What does "warranted" mean?',
+    options: ['Justified or authorized', 'Unjustified', 'Unauthorized', 'Unwarranted'],
+    answer: 'Justified or authorized'
+  },
+  {
+    question: 'What does "wary" mean?',
+    options: ['Cautious or watchful', 'Trustful', 'Careless', 'Unconcerned'],
+    answer: 'Cautious or watchful'
+  },
+  {
+    question: 'What does "welter" mean?',
+    options: ['A large, confused mass', 'Orderly arrangement', 'Structured form', 'Neatness'],
+    answer: 'A large, confused mass'
+  },
+  {
+    question: 'What does "whimsical" mean?',
+    options: ['Playfully quaint or fanciful', 'Serious', 'Formal', 'Solemn'],
+    answer: 'Playfully quaint or fanciful'
+  },
+  {
+    question: 'What does "zealot" mean?',
+    options: ['A person who is fervently devoted to a cause', 'A skeptic', 'An indifferent person', 'A critic'],
+    answer: 'A person who is fervently devoted to a cause'
+  }
+],
+};
 
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
+const quizContainer = document.getElementById('quiz');
+const resultContainer = document.getElementById('result');
+const submitButton = document.getElementById('submit');
+const retryButton = document.getElementById('retry');
+const showAnswerButton = document.getElementById('showAnswer');
+const partSelection = document.getElementById('partSelection');
+
+let currentPart = 0;
+let currentQuestion = 0;
+let score = 0;
+let incorrectAnswers = [];
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function displayQuestion() {
+  const questionData = quizData[currentPart][currentQuestion];
+
+  const questionElement = document.createElement('div');
+  questionElement.className = 'question';
+  questionElement.innerHTML = questionData.question;
+
+  const optionsElement = document.createElement('div');
+  optionsElement.className = 'options';
+
+  const shuffledOptions = [...questionData.options];
+  shuffleArray(shuffledOptions);
+
+  for (let i = 0; i < shuffledOptions.length; i++) {
+    const option = document.createElement('label');
+    option.className = 'option';
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'quiz';
+    radio.value = shuffledOptions[i];
+
+    const optionText = document.createTextNode(shuffledOptions[i]);
+
+    option.appendChild(radio);
+    option.appendChild(optionText);
+    optionsElement.appendChild(option);
+  }
+
+  quizContainer.innerHTML = '';
+  quizContainer.appendChild(questionElement);
+  quizContainer.appendChild(optionsElement);
+}
+
+function checkAnswer() {
+  const selectedOption = document.querySelector('input[name="quiz"]:checked');
+  if (selectedOption) {
+    const answer = selectedOption.value;
+    if (answer === quizData[currentPart][currentQuestion].answer) {
+      score++;
+      displayFeedback('Correct!', 'blue');
+    } else {
+      incorrectAnswers.push({
+        question: quizData[currentPart][currentQuestion].question,
+        incorrectAnswer: answer,
+        correctAnswer: quizData[currentPart][currentQuestion].answer,
+      });
+      displayFeedback('Incorrect!', 'red');
     }
-
-    function displayQuestion() {
-      const questionData = quizData[currentQuestion];
-
-      const questionElement = document.createElement('div');
-      questionElement.className = 'question';
-      questionElement.innerHTML = questionData.question;
-
-      const optionsElement = document.createElement('div');
-      optionsElement.className = 'options';
-
-      const shuffledOptions = [...questionData.options];
-      shuffleArray(shuffledOptions);
-
-      for (let i = 0; i < shuffledOptions.length; i++) {
-        const option = document.createElement('label');
-        option.className = 'option';
-
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = 'quiz';
-        radio.value = shuffledOptions[i];
-
-        const optionText = document.createTextNode(shuffledOptions[i]);
-
-        option.appendChild(radio);
-        option.appendChild(optionText);
-        optionsElement.appendChild(option);
-      }
-
-      quizContainer.innerHTML = '';
-      quizContainer.appendChild(questionElement);
-      quizContainer.appendChild(optionsElement);
-    }
-
-    function checkAnswer() {
-      const selectedOption = document.querySelector('input[name="quiz"]:checked');
-      if (selectedOption) {
-        const answer = selectedOption.value;
-        if (answer === quizData[currentQuestion].answer) {
-          score++;
-          displayFeedback('Correct!', 'blue');
-        } else {
-          incorrectAnswers.push({
-            question: quizData[currentQuestion].question,
-            incorrectAnswer: answer,
-            correctAnswer: quizData[currentQuestion].answer,
-          });
-          displayFeedback('Incorrect!', 'red');
-        }
-        currentQuestion++;
-        selectedOption.checked = false;
-        if (currentQuestion < quizData.length) {
-          displayQuestion();
-        } else {
-          displayResult();
-        }
-      } else {
-        displayFeedback('Please select an answer.', 'orange');
-      }
-    }
-
-    function displayFeedback(message, color) {
-      const feedback = document.createElement('div');
-      feedback.textContent = message;
-      feedback.style.color = color;
-      feedback.style.fontWeight = 'bold';
-      feedback.style.textAlign = 'center';
-      feedback.style.marginBottom = '20px';
-      
-      quizContainer.insertBefore(feedback, quizContainer.firstChild);
-    }
-
-    function displayResult() {
-      quizContainer.style.display = 'none';
-      submitButton.style.display = 'none';
-      retryButton.style.display = 'inline-block';
-      showAnswerButton.style.display = 'inline-block';
-      resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
-    }
-
-    function retryQuiz() {
-      currentQuestion = 0;
-      score = 0;
-      incorrectAnswers = [];
-      quizContainer.style.display = 'block';
-      submitButton.style.display = 'inline-block';
-      retryButton.style.display = 'none';
-      showAnswerButton.style.display = 'none';
-      resultContainer.innerHTML = '';
+    currentQuestion++;
+    selectedOption.checked = false;
+    if (currentQuestion < quizData[currentPart].length) {
       displayQuestion();
+    } else {
+      displayResult();
     }
+  } else {
+    displayFeedback('Please select an answer.', 'orange');
+  }
+}
 
-    function showAnswer() {
-      quizContainer.style.display = 'none';
-      submitButton.style.display = 'none';
-      retryButton.style.display = 'inline-block';
-      showAnswerButton.style.display = 'none';
+function displayFeedback(message, color) {
+  const feedback = document.createElement('div');
+  feedback.textContent = message;
+  feedback.style.color = color;
+  feedback.style.fontWeight = 'bold';
+  feedback.style.textAlign = 'center';
+  feedback.style.marginBottom = '20px';
+  
+  quizContainer.insertBefore(feedback, quizContainer.firstChild);
+}
 
-      let incorrectAnswersHtml = '';
-      for (let i = 0; i < incorrectAnswers.length; i++) {
-        incorrectAnswersHtml += `
-          <p>
-            <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
-            <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
-            <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
-          </p>
-        `;
-      }
+function displayResult() {
+  quizContainer.style.display = 'none';
+  submitButton.style.display = 'none';
+  retryButton.style.display = 'inline-block';
+  showAnswerButton.style.display = 'inline-block';
+  resultContainer.innerHTML = `You scored ${score} out of ${quizData[currentPart].length}!`;
+}
 
-      resultContainer.innerHTML = `
-        <p>You scored ${score} out of ${quizData.length}!</p>
-        <p>Incorrect Answers:</p>
-        ${incorrectAnswersHtml}
-      `;
-    }
+function retryQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  incorrectAnswers = [];
+  quizContainer.style.display = 'block';
+  submitButton.style.display = 'inline-block';
+  retryButton.style.display = 'none';
+  showAnswerButton.style.display = 'none';
+  resultContainer.innerHTML = '';
+  displayQuestion();
+}
 
-    submitButton.addEventListener('click', checkAnswer);
-    retryButton.addEventListener('click', retryQuiz);
-    showAnswerButton.addEventListener('click', showAnswer);
+function showAnswer() {
+  quizContainer.style.display = 'none';
+  submitButton.style.display = 'none';
+  retryButton.style.display = 'inline-block';
+  showAnswerButton.style.display = 'none';
 
-    displayQuestion();
-  </script>
-</body>
-</html>
+  let incorrectAnswersHtml = '';
+  for (let i = 0; i < incorrectAnswers.length; i++) {
+    incorrectAnswersHtml += `
+      <p>
+        <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
+        <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
+        <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+      </p>
+    `;
+  }
+
+  resultContainer.innerHTML = `
+    <p>You scored ${score} out of ${quizData[currentPart].length}!</p>
+    <p>Incorrect Answers:</p>
+    ${incorrectAnswersHtml}
+  `;
+}
+
+function selectPart(part) {
+  currentPart = part;
+  currentQuestion = 0;
+  score = 0;
+  incorrectAnswers = [];
+  partSelection.style.display = 'none';
+  quizContainer.style.display = 'block';
+  submitButton.style.display = 'inline-block';
+  retryButton.style.display = 'none';
+  showAnswerButton.style.display = 'none';
+  resultContainer.innerHTML = '';
+  displayQuestion();
+}
+
+submitButton.addEventListener('click', checkAnswer);
+retryButton.addEventListener('click', retryQuiz);
+showAnswerButton.addEventListener('click', showAnswer);
+
+ </script>
